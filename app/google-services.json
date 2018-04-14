@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "388696039696",
+    "firebase_url": "https://android-smart-traveler.firebaseio.com",
+    "project_id": "android-smart-traveler",
+    "storage_bucket": "android-smart-traveler.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:388696039696:android:969880ba9fcdfec2",
+        "android_client_info": {
+          "package_name": "com.example.pallaksingh.androidsmarttraveler"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "388696039696-jo2n0s52obu5nib1m5ujvjvjcoecepn7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCI06bZZueMKq-SRq8hsqDAlDuRIC8yZVQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
