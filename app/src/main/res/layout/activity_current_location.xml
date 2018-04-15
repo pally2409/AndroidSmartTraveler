@@ -38,5 +38,15 @@
             android:layout_gravity="center_horizontal"
             android:text="Name"
             />
+
+        <Button
+            android:id="@+id/buttonDiscoverPlaces"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="Show Places Nearby"
+             />
     </LinearLayout>
+
+
 </android.support.constraint.ConstraintLayout>
