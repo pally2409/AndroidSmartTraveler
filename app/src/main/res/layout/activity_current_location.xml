@@ -46,7 +46,19 @@
             android:layout_margin="15dp"
             android:text="Show Places Nearby"
              />
+
+        <Button
+            android:id="@+id/findAPlace"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Find a place "
+            android:layout_margin="15dp"
+            />
+
+
     </LinearLayout>
+
+
 
 
 </android.support.constraint.ConstraintLayout>

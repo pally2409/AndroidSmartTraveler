@@ -23,7 +23,8 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".CurrentLocationActivity" />
-        <activity android:name=".AndroidFoursquare"></activity>
+        <activity android:name=".AndroidFoursquare" />
+        <activity android:name=".FindAPlaceActivity"></activity>
     </application>
 
 </manifest>

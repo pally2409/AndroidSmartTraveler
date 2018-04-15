@@ -24,6 +24,8 @@ public class CurrentLocationActivity extends AppCompatActivity implements View.O
     private EditText LocationLat;
     private EditText LocationLong;
     private Button buttonDiscoverPlaces;
+    private Button findAPlace;
+
 
 
 
@@ -41,6 +43,8 @@ public class CurrentLocationActivity extends AppCompatActivity implements View.O
 
         buttonDiscoverPlaces = (Button) findViewById(R.id.buttonDiscoverPlaces);
         buttonDiscoverPlaces.setOnClickListener(this);
+        findAPlace = (Button) findViewById(R.id.findAPlace);
+        findAPlace.setOnClickListener(this);
 
         locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         getLocation();
@@ -88,6 +92,11 @@ public class CurrentLocationActivity extends AppCompatActivity implements View.O
         if (view == buttonDiscoverPlaces) {
             finish();
             startActivity(new Intent(this, AndroidFoursquare.class));
+        }
+
+        if(view ==findAPlace) {
+            finish();
+            startActivity(new Intent(this, FindAPlaceActivity.class));
         }
 
     }
