@@ -24,7 +24,14 @@
         <activity android:name=".ProfileActivity" />
         <activity android:name=".CurrentLocationActivity" />
         <activity android:name=".AndroidFoursquare" />
-        <activity android:name=".FindAPlaceActivity"></activity>
+        <activity android:name=".FindAPlaceActivity" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBaFUPSS2M3_wTQT5aJ6rqMDGbNKb2NRAE" />
+
+        <activity android:name=".RecommendationsActivity" />
+        <activity android:name=".AndroidGooglePlaces"></activity>
     </application>
 
 </manifest>

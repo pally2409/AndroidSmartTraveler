@@ -65,9 +65,15 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             startActivity(new Intent(this, LoginActivity.class));
         }
 
+
+//        if(view == image_button_android_questionnaire) {
+//            finish();
+//            startActivity(new Intent(this, CurrentLocationActivity.class));
+//        }
+
         if(view == image_button_android_questionnaire) {
             finish();
-            startActivity(new Intent(this, CurrentLocationActivity.class));
+            startActivity(new Intent(this, AndroidGooglePlaces.class));
         }
 
     }

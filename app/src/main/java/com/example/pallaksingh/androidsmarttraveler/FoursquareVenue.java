@@ -10,6 +10,7 @@ public class FoursquareVenue {
         this.name = "";
         this.city = "";
         this.setCategory("");
+
     }
 
     public String getCity() {

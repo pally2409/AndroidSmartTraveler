@@ -37,5 +37,14 @@
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/check_mark_copy" />
 
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/pic440045_200"
+            />
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
