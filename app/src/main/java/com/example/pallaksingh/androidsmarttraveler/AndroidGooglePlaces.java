@@ -1,12 +1,15 @@
 package com.example.pallaksingh.androidsmarttraveler;
 
 import android.app.ListActivity;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -24,7 +27,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
-public class AndroidGooglePlaces extends AppCompatActivity {
+public class AndroidGooglePlaces extends AppCompatActivity implements View.OnClickListener{
 
     private RecyclerView places_recommendations;
     private RecyclerView.Adapter adapter;
@@ -47,11 +50,10 @@ public class AndroidGooglePlaces extends AppCompatActivity {
     public String latitude = "28.5981355";
     public String longitude = "77.04114219999997";
 
-    public ArrayList<Places> temp = new ArrayList<Places>();
-    public ArrayList<Places> finalPlaces = new ArrayList<Places>();
-    public Boolean farOrNear;
+    public static ArrayList<Places> temp = new ArrayList<Places>();
+    public static Boolean farOrNear = false;
     public ArrayList<Long> time = new ArrayList<Long>();
-    public ArrayList<String> lessThanPlaces = new ArrayList<String>();
+    private Button TimeFilterbutton;
 
 
     @Override
@@ -60,8 +62,11 @@ public class AndroidGooglePlaces extends AppCompatActivity {
         setContentView(R.layout.activity_android_google_places);
 
         places_recommendations = (RecyclerView) findViewById(R.id.places_recommendations);
+        TimeFilterbutton = (Button) findViewById(R.id.TimeFilterbutton);
+        TimeFilterbutton.setOnClickListener(this);
         places_recommendations.setHasFixedSize(true);
         places_recommendations.setLayoutManager(new LinearLayoutManager(this));
+
 
         if(aquarium) {
             last = "aquarium";
@@ -80,7 +85,6 @@ public class AndroidGooglePlaces extends AppCompatActivity {
         } else if(amusement_park) {
             last = "amusement_park";
         }
-
         if (amusement_park) {
             new GooglePlaces("amusement_park", new Callback()).execute();
 
@@ -162,6 +166,14 @@ public class AndroidGooglePlaces extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onClick(View view) {
+        if (view==TimeFilterbutton) {
+            startActivity(new Intent(this, RecommendationsActivity.class));
+        }
+
+    }
+
 
 //        new GooglePlaces().execute();
 
@@ -220,47 +232,10 @@ public class AndroidGooglePlaces extends AppCompatActivity {
                     // make an jsonObject in order to parse the response
                     JSONObject jsonObject = new JSONObject(data);
                     listener.onTaskCompletedMaps(jsonObject);
-//                            .getJSONArray("rows").getJSONObject(0).getJSONArray("elements").getJSONObject(0).getJSONObject("duration");
-//                    time = jsonObject.get("value").toString();
-
-
-//
-//                    // make an jsonObject in order to parse the response
-//                    if (jsonObject.has("rows")) {
-//                        JSONArray jsonArray = jsonObject.getJSONArray("rows");
-//                        for (int i = 0; i < jsonArray.length(); i++) {
-//                            Places poi = new Places();
-//                            if (jsonArray.getJSONObject(i).has("name")) {
-//                                poi.setName(jsonArray.getJSONObject(i).optString("name"));
-//                                poi.setDistance(jsonArray.getJSONObject(i).optString("rating", " "));
-//                                if (jsonArray.getJSONObject(i).has("vicinity")) {
-//                                    poi.setShortDesc(jsonArray.getJSONObject(i).optString("vicinity"));
-//                                }
-////                                if (jsonArray.getJSONObject(i).has("types")) {
-////                                    JSONArray typesArray = jsonArray.getJSONObject(i).getJSONArray("types");
-////                                    for (int j = 0; j < typesArray.length(); j++) {
-////                                        poi.setPlace_type(typesArray.getString(j) + ", " + poi.getPlace_type());
-////                                    }
-////                                }
-//
-//                                poi.setPlace_type(query);
-//                            }
-//                            //if(temp.size()<5)
-//                            temp.add(poi);
-//                        }
-//                    }
-//                    PlacesAdapter adapter = new PlacesAdapter(AndroidGooglePlaces.this, temp);
-//                    places_recommendations.setAdapter(adapter);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
 
-
-//                long unixSeconds = Long.parseLong(time, 10);
-//                Date date = new Date(unixSeconds*1000L);
-//                SimpleDateFormat sdf = new java.text.SimpleDateFormat("HH:mm:ss z");
-//                sdf.setTimeZone(TimeZone.getTimeZone("GMT-4"));
-//                String formattedDate = sdf.format(date);
 
 
 
@@ -344,35 +319,6 @@ public class AndroidGooglePlaces extends AppCompatActivity {
                     // make an jsonObject in order to parse the response
                     JSONObject jsonObject = new JSONObject(data);
                     listener.onTaskCompleted(jsonObject, query);
-
-
-
-                    // make an jsonObject in order to parse the response
-//                    if (jsonObject.has("results")) {
-//                        JSONArray jsonArray = jsonObject.getJSONArray("results");
-//                        for (int i = 0; i < 5; i++) {
-//                            Places poi = new Places();
-//                            if (jsonArray.getJSONObject(i).has("name")) {
-//                                poi.setName(jsonArray.getJSONObject(i).optString("name"));
-//                                poi.setDistance(jsonArray.getJSONObject(i).optString("rating", " "));
-//                                if (jsonArray.getJSONObject(i).has("vicinity")) {
-//                                    poi.setShortDesc(jsonArray.getJSONObject(i).optString("vicinity"));
-//                                }
-////                                if (jsonArray.getJSONObject(i).has("types")) {
-////                                    JSONArray typesArray = jsonArray.getJSONObject(i).getJSONArray("types");
-////                                    for (int j = 0; j < typesArray.length(); j++) {
-////                                        poi.setPlace_type(typesArray.getString(j) + ", " + poi.getPlace_type());
-////                                    }
-////                                }
-//
-//                                poi.setPlace_type(query);
-//                            }
-//                            //if(temp.size()<5)
-//                            temp.add(poi);
-//                        }
-//                    }
-//                    PlacesAdapter adapter = new PlacesAdapter(AndroidGooglePlaces.this, temp);
-//                    places_recommendations.setAdapter(adapter);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -383,50 +329,6 @@ public class AndroidGooglePlaces extends AppCompatActivity {
         }
     }
 
-
-    private static ArrayList<Places> parseAndroidPlaces(final String response) {
-
-        ArrayList<Places> temp = new ArrayList<Places>();
-        try {
-
-            // make an jsonObject in order to parse the response
-            JSONObject jsonObject = new JSONObject(response);
-
-            // make an jsonObject in order to parse the response
-            if (jsonObject.has("results")) {
-                JSONArray jsonArray = jsonObject.getJSONArray("results");
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    Places poi = new Places();
-                    if (jsonArray.getJSONObject(i).has("name")) {
-                        poi.setName(jsonArray.getJSONObject(i).optString("name"));
-                        poi.setDistance(jsonArray.getJSONObject(i).optString("rating", " "));
-                        if (jsonArray.getJSONObject(i).has("vicinity")) {
-                            poi.setShortDesc(jsonArray.getJSONObject(i).optString("vicinity"));
-                        }
-
-
-//                        if (jsonArray.getJSONObject(i).has("types")) {
-//                            JSONArray typesArray = jsonArray.getJSONObject(i).getJSONArray("types");
-//                            for (int j = 0; j < typesArray.length(); j++) {
-//                                poi.setPlace_type(typesArray.getString(j) + ", " + poi.getPlace_type());
-//                            }
-//                        }
-//
-
-                    }
-
-
-                    //if(temp.size()<5)
-                    temp.add(poi);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ArrayList();
-        }
-        return temp;
-
-    }
 
     public interface OnTaskCompleted{
         void onTaskCompleted(JSONObject jsonObject, String query);
@@ -444,17 +346,14 @@ public class AndroidGooglePlaces extends AppCompatActivity {
                 Long tempTime;
                 String address;
                         //.getJSONObject(0).getJSONArray("elements").getJSONObject(0).getJSONObject("duration");
-                for (int i = 0; i< jsonArray.length(); i++) {
+               // for (int i = 0; i< jsonArray.length(); i++) {
 
-                    tempTime = Long.parseLong(jsonArray.getJSONObject(0).getJSONArray("elements").getJSONObject(i).getJSONObject("duration").get("value").toString(), 10);
-                    address = jsonObject.getJSONArray("destination_address").get(i).toString();
-                    if (tempTime+ 3600 > totalTime) {
-                        lessThanPlaces.add(address);
+                    tempTime = Long.parseLong(jsonArray.getJSONObject(0).getJSONArray("elements").getJSONObject(0).getJSONObject("duration").get("value").toString(), 10);
+                    //address = jsonObject.getJSONArray("destination_address").get(0).toString();
+                    if (tempTime+ 3600 > totalTime) farOrNear = true;
+                    else farOrNear = false;
 
-                    } else {
-                    }
-
-                }
+               // }
 
 
 
@@ -479,7 +378,7 @@ public class AndroidGooglePlaces extends AppCompatActivity {
                 // make an jsonObject in order to parse the response
                 if (jsonObject.has("results")) {
                     JSONArray jsonArray = jsonObject.getJSONArray("results");
-                    for (int i = 0; i < 5; i++) {
+                    for (int i = 0; i < 4; i++) {
                         Places poi = new Places();
                         if (jsonArray.getJSONObject(i).has("name")) {
                             poi.setName(jsonArray.getJSONObject(i).optString("name"));
@@ -487,15 +386,11 @@ public class AndroidGooglePlaces extends AppCompatActivity {
                             if (jsonArray.getJSONObject(i).has("vicinity")) {
                                 poi.setShortDesc(jsonArray.getJSONObject(i).optString("vicinity"));
                             }
-//                                if (jsonArray.getJSONObject(i).has("types")) {
-//                                    JSONArray typesArray = jsonArray.getJSONObject(i).getJSONArray("types");
-//                                    for (int j = 0; j < typesArray.length(); j++) {
-//                                        poi.setPlace_type(typesArray.getString(j) + ", " + poi.getPlace_type());
-//                                    }
-//                                }
 
                             poi.setPlace_type(query);
                         }
+
+
                         //if(temp.size()<5)
                         temp.add(poi);
 
@@ -511,12 +406,15 @@ public class AndroidGooglePlaces extends AppCompatActivity {
 
 
 
+
+
+
         }
 
 
+
+
     }
-
-
 
 
 

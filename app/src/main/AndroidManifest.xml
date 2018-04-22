@@ -31,7 +31,7 @@
             android:value="AIzaSyBaFUPSS2M3_wTQT5aJ6rqMDGbNKb2NRAE" />
 
         <activity android:name=".RecommendationsActivity" />
-        <activity android:name=".AndroidGooglePlaces"></activity>
+        <activity android:name=".AndroidGooglePlaces" />
     </application>
 
 </manifest>

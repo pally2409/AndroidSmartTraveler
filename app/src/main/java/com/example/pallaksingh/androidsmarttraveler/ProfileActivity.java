@@ -3,9 +3,11 @@ package com.example.pallaksingh.androidsmarttraveler;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -16,9 +18,9 @@ import org.w3c.dom.Text;
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
     private FirebaseAuth firebaseAuth;
-    private TextView textViewUserEmail;
     private Button buttonLogout;
-    private ImageButton image_button_android_questionnaire;
+    private CardView image_button_android_questionnaire;
+
 
 
 
@@ -46,11 +48,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
 
         FirebaseUser user = firebaseAuth.getCurrentUser();
-        textViewUserEmail = (TextView) findViewById(R.id.textViewUserEmail);
-        textViewUserEmail.setText("Welcome " +user.getEmail());
         buttonLogout = (Button) findViewById(R.id.buttonLogout);
         buttonLogout.setOnClickListener(this);
-        image_button_android_questionnaire = (ImageButton) findViewById(R.id.image_button_android_questionnaire);
+        image_button_android_questionnaire = (CardView) findViewById(R.id.image_button_android_questionnaire);
         image_button_android_questionnaire.setOnClickListener(this);
 
 
