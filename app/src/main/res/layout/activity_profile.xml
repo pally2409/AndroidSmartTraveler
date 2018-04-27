@@ -72,7 +72,7 @@
                 <android.support.v7.widget.CardView
                     android:foreground="?android:attr/selectableItemBackground"
                     android:clickable="true"
-                    android:id="@+id/moreMenu"
+                    android:id="@+id/show_on_map"
                     android:layout_height="190dp"
                     android:layout_width="160dp"
                     android:layout_margin="10dp">

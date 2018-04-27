@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "388696039696-2ksi859jk3dc4s8o1qbsp4fe7epict0g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pallaksingh.androidsmarttraveler",
+            "certificate_hash": "5cfc3b5ec5a7761246885b9c2157cc921a5f4384"
+          }
+        },
+        {
           "client_id": "388696039696-jo2n0s52obu5nib1m5ujvjvjcoecepn7.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "388696039696-jo2n0s52obu5nib1m5ujvjvjcoecepn7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

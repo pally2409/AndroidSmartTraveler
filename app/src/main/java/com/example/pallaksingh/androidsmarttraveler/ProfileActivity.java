@@ -20,6 +20,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private FirebaseAuth firebaseAuth;
     private Button buttonLogout;
     private CardView image_button_android_questionnaire;
+    private CardView show_on_map;
 
 
 
@@ -52,6 +53,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         buttonLogout.setOnClickListener(this);
         image_button_android_questionnaire = (CardView) findViewById(R.id.image_button_android_questionnaire);
         image_button_android_questionnaire.setOnClickListener(this);
+        show_on_map = (CardView) findViewById(R.id.show_on_map);
+        show_on_map.setOnClickListener(this);
+
 
 
 
@@ -73,8 +77,18 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         if(view == image_button_android_questionnaire) {
             finish();
-            startActivity(new Intent(this, AndroidGooglePlaces.class));
+            //startActivity(new Intent(this, AndroidGooglePlaces.class));
+            startActivity(new Intent(this, Questionnaire.class));
         }
+
+        if(view == show_on_map) {
+            finish();
+            startActivity(new Intent(this, MapActivity.class));
+        }
+
+
+
+
 
     }
 }
