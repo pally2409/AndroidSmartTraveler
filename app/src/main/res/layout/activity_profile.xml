@@ -169,7 +169,8 @@
             android:clickable="true"
             android:layout_width="160dp"
             android:layout_height="190dp"
-            android:layout_margin="10dp">
+            android:layout_margin="10dp"
+            android:id="@+id/showMyRecs">
 
             <LinearLayout
                 android:layout_width="match_parent"

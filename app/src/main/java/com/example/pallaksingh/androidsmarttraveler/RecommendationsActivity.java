@@ -1,5 +1,7 @@
 package com.example.pallaksingh.androidsmarttraveler;
 
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +22,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class RecommendationsActivity extends AppCompatActivity {
 
@@ -27,7 +30,7 @@ public class RecommendationsActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     //private RecyclerView.LayoutManager mLayoutManager;
     List<Places> placesLists = new ArrayList<>();
-    public long totalTime = 10800;
+    public long totalTime = AndroidGooglePlaces.totalTime;
     public boolean farOrNear = false;
     public int position;
     List<Integer> indexes = new ArrayList<>();
@@ -45,7 +48,7 @@ public class RecommendationsActivity extends AppCompatActivity {
         places_recommendations.setHasFixedSize(true);
         places_recommendations.setLayoutManager(new LinearLayoutManager(this));
         String toPlace = "";
-        String fromPlace = "Shree+Hospital,Dwarka";
+        String fromPlace = "";
         int i = 0;
         while(i<AndroidGooglePlaces.temp.size()) {
             toPlace = toPlace + "|" + AndroidGooglePlaces.temp.get(i).getName() + "%20" + AndroidGooglePlaces.temp.get(i).getShortDesc();
@@ -54,22 +57,20 @@ public class RecommendationsActivity extends AppCompatActivity {
 
         }
 
+        try {
+            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+            List<Address> addresses = geocoder.getFromLocation(Double.parseDouble(ProfileActivity.latitude), Double.parseDouble(ProfileActivity.longitude), 1);
+            fromPlace = addresses.get(0).getAddressLine(0)+", "+
+                    addresses.get(0).getAddressLine(1)+", "+addresses.get(0).getAddressLine(2);
+        }catch(Exception e)
+        {
+
+        }
+
+
 
         GoogleMaps currentTask = new GoogleMaps(fromPlace, toPlace, new Callbacks());
         currentTask.execute();
-//
-//        while(currentTask.getStatus() == AsyncTask.Status.PENDING || currentTask.getStatus() == AsyncTask.Status.RUNNING) {
-//
-//        }
-//
-//        if(currentTask.getStatus() == AsyncTask.Status.FINISHED) {
-//
-//        }
-
-
-
-
-
 
 
 

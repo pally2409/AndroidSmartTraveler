@@ -1,15 +1,34 @@
 package com.example.pallaksingh.androidsmarttraveler;
 
+import android.Manifest;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -34,21 +53,26 @@ public class AndroidGooglePlaces extends AppCompatActivity implements View.OnCli
     //private List<Places> ;
     ArrayList<Places> placesList;
 
-    public boolean amusement_park = true;
-    public boolean library = false;
-    public boolean art_gallery = true;
-    public boolean museum = true;
-    public boolean movie_theatre = false ;
-    public boolean shopping_mall = false;
-    public boolean zoo = false;
-    public boolean aquarium = false;
-    public long totalTime = 10800;
+    public boolean amusement_park;
+    public boolean library;
+    public boolean art_gallery;
+    public boolean museum;
+    public boolean movie_theatre;
+    public boolean shopping_mall;
+    public boolean zoo;
+    public boolean aquarium;
+    public static long totalTime;
     public String last = "";
     public Boolean lastQuery = false;
 
-
-    public String latitude = "28.5981355";
-    public String longitude = "77.04114219999997";
+    DatabaseReference databaseReference;
+    FirebaseAuth firebaseAuth;
+    public int howMuchToParse;
+    public int flag = 0;
+    static final int REQUEST_LOCATION = 1;
+    LocationManager locationManager;
+    public String latitude;
+    public String longitude;
 
     public static ArrayList<Places> temp = new ArrayList<Places>();
     public static Boolean farOrNear = false;
@@ -68,6 +92,11 @@ public class AndroidGooglePlaces extends AppCompatActivity implements View.OnCli
         places_recommendations.setLayoutManager(new LinearLayoutManager(this));
 
 
+
+
+
+
+
         if(aquarium) {
             last = "aquarium";
         } else if(zoo){
@@ -85,38 +114,8 @@ public class AndroidGooglePlaces extends AppCompatActivity implements View.OnCli
         } else if(amusement_park) {
             last = "amusement_park";
         }
-        if (amusement_park) {
-            new GooglePlaces("amusement_park", new Callback()).execute();
 
-        }
 
-        if (library) {
-            new GooglePlaces("library", new Callback()).execute();
-        }
-
-        if (art_gallery) {
-            new GooglePlaces("art_gallery", new Callback()).execute();
-        }
-
-        if (museum) {
-            new GooglePlaces("museum", new Callback()).execute();
-        }
-
-        if (movie_theatre) {
-            new GooglePlaces("movie_theatre", new Callback()).execute();
-        }
-
-        if (shopping_mall) {
-            new GooglePlaces("shopping_mall", new Callback()).execute();
-        }
-
-        if (zoo) {
-            new GooglePlaces("zoo", new Callback()).execute();
-        }
-
-        if (aquarium) {
-            new GooglePlaces("aquarium", new Callback()).execute();
-        }
 
         String toPlace = "";
         String fromPlace = "Shree+Hospital,Dwarka";
@@ -129,8 +128,8 @@ public class AndroidGooglePlaces extends AppCompatActivity implements View.OnCli
             }
 
 
-            GoogleMaps googleMaps = new GoogleMaps(toPlace, fromPlace, new Callback());
-            googleMaps.execute();
+            //GoogleMaps googleMaps = new GoogleMaps(toPlace, fromPlace, new Callback());
+            //googleMaps.execute();
 
 //            if (farOrNear == true) {
 //                finalPlaces.add(temp.get(i));
@@ -167,12 +166,168 @@ public class AndroidGooglePlaces extends AppCompatActivity implements View.OnCli
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        final String uid = user.getUid();
+
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot data: dataSnapshot.getChildren()) {
+
+                    String ds = data.getKey().toString();
+                    if (ds.equals(uid)) {
+
+                        String temp;
+                        temp = data.child("amusement_park").getValue().toString();
+                        if(temp == "true") {
+                            amusement_park = true;
+                            flag = flag + 1;
+                        } else {
+                            amusement_park = false;
+                        }
+
+                        temp = data.child("library").getValue().toString();
+                        if(temp == "true") {
+                            library = true;
+                            flag = flag + 1;
+                        } else {
+                            library = false;
+                        }
+
+                        temp = data.child("art_gallery").getValue().toString();
+                        if(temp == "true") {
+                            art_gallery = true;
+                            flag = flag + 1;
+                        } else {
+                            art_gallery = false;
+                        }
+
+                        temp = data.child("museum").getValue().toString();
+                        if(temp == "true") {
+                            museum = true;
+                            flag = flag + 1;
+                        } else {
+                            museum = false;
+                        }
+
+                        temp = data.child("movie_theatre").getValue().toString();
+                        if(temp == "true") {
+                            movie_theatre = true;
+                            flag = flag + 1;
+                        } else {
+                            movie_theatre = false;
+                        }
+
+
+                        temp = data.child("shopping_mall").getValue().toString();
+                        if(temp == "true") {
+                            shopping_mall = true;
+                            flag = flag + 1;
+                        } else {
+                            shopping_mall = false;
+                        }
+
+                        temp = data.child("zoo").getValue().toString();
+                        if(temp == "true") {
+                            zoo = true;
+                            flag = flag + 1;
+                        } else {
+                            zoo = false;
+                        }
+
+                        temp = data.child("aquarium").getValue().toString();
+                        if(temp == "aquarium") {
+                            aquarium = true;
+                            flag = flag + 1;
+                        } else {
+                            aquarium = false;
+                        }
+
+                        long time;
+                        temp = data.child("unixTime").getValue().toString();
+                        time = Long.parseLong(temp);
+                        totalTime = time;
+
+                        if (amusement_park) {
+                            new GooglePlaces("amusement_park", new Callback()).execute();
+
+                        }
+
+                        if (library) {
+                            new GooglePlaces("library", new Callback()).execute();
+                        }
+
+                        if (art_gallery) {
+                            new GooglePlaces("art_gallery", new Callback()).execute();
+                        }
+
+                        if (museum) {
+                            new GooglePlaces("museum", new Callback()).execute();
+                        }
+
+                        if (movie_theatre) {
+                            new GooglePlaces("movie_theater", new Callback()).execute();
+                        }
+
+                        if (shopping_mall) {
+                            new GooglePlaces("shopping_mall", new Callback()).execute();
+                        }
+
+                        if (zoo) {
+                            new GooglePlaces("zoo", new Callback()).execute();
+                        }
+
+                        if (aquarium) {
+                            new GooglePlaces("aquarium", new Callback()).execute();
+                        }
+
+                    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
+
+
+    }
+
+
+
+
+
+    @Override
     public void onClick(View view) {
         if (view==TimeFilterbutton) {
             startActivity(new Intent(this, RecommendationsActivity.class));
         }
 
     }
+
+
 
 
 //        new GooglePlaces().execute();
@@ -253,6 +408,8 @@ public class AndroidGooglePlaces extends AppCompatActivity implements View.OnCli
         String data = "";
         String query = "";
         private OnTaskCompleted listener;
+        String latitude = ProfileActivity.latitude;
+        String longitude = ProfileActivity.longitude;
 
 
 
@@ -272,7 +429,7 @@ public class AndroidGooglePlaces extends AppCompatActivity implements View.OnCli
 
 
                 // make Call to the url
-                URL url = new URL("https://maps.googleapis.com/maps/api/place/search/json?radius=50000&sensor=false&key=AIzaSyBaFUPSS2M3_wTQT5aJ6rqMDGbNKb2NRAE&location=28.5981355,77.04114219999997&type=" + query);
+                URL url = new URL("https://maps.googleapis.com/maps/api/place/search/json?radius=50000&sensor=false&key=AIzaSyBaFUPSS2M3_wTQT5aJ6rqMDGbNKb2NRAE&location="+latitude+","+longitude+"&type=" + query);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
@@ -369,6 +526,21 @@ public class AndroidGooglePlaces extends AppCompatActivity implements View.OnCli
         }
         @Override
         public void onTaskCompleted(JSONObject jsonObject, String query) {
+
+
+            if(flag > 3) {
+                if(flag == 4) {
+                    howMuchToParse = 3;
+                } else if(flag == 5 || flag == 6) {
+                    howMuchToParse = 2;
+                } else {
+                    howMuchToParse = 1;
+                }
+
+
+            } else {
+                howMuchToParse = 4;
+            }
             // do something with result here!
             try {
 
@@ -378,7 +550,7 @@ public class AndroidGooglePlaces extends AppCompatActivity implements View.OnCli
                 // make an jsonObject in order to parse the response
                 if (jsonObject.has("results")) {
                     JSONArray jsonArray = jsonObject.getJSONArray("results");
-                    for (int i = 0; i < 4; i++) {
+                    for (int i = 0; i < howMuchToParse; i++) {
                         Places poi = new Places();
                         if (jsonArray.getJSONObject(i).has("name")) {
                             poi.setName(jsonArray.getJSONObject(i).optString("name"));
@@ -404,19 +576,14 @@ public class AndroidGooglePlaces extends AppCompatActivity implements View.OnCli
 
 
 
-
-
-
-
-
         }
-
-
 
 
     }
 
 
-
 }
+
+
+
 
