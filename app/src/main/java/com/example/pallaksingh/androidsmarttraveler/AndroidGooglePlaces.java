@@ -85,6 +85,8 @@ public class AndroidGooglePlaces extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_android_google_places);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         places_recommendations = (RecyclerView) findViewById(R.id.places_recommendations);
         TimeFilterbutton = (Button) findViewById(R.id.TimeFilterbutton);
         TimeFilterbutton.setOnClickListener(this);

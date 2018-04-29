@@ -189,7 +189,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
                 break;
             case R.id.Restaurants:
                 mMap.clear();
-                String restaurants = "restaurants";
+                String restaurants = "restaurant";
                 String url = getURL(latitude, longitude, restaurants);
                 dataTransfer[0] = mMap;
                 dataTransfer[1] = url;

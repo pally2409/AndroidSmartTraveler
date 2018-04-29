@@ -45,6 +45,8 @@ public class Questionnaire extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questionnaire);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         checkAmusement_Parks = (CheckBox) findViewById(R.id.checkAmusement_Parks);
         checkZoo = (CheckBox) findViewById(R.id.checkZoo);
         checkAquarium = (CheckBox) findViewById(R.id.checkAquarium);

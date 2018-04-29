@@ -35,6 +35,7 @@ public class RecommendationsActivity extends AppCompatActivity {
     public int position;
     List<Integer> indexes = new ArrayList<>();
 
+    List<String> howMuchTimeString = new ArrayList<>();
 
 
 
@@ -43,6 +44,8 @@ public class RecommendationsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recommendations);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         places_recommendations = (RecyclerView) findViewById(R.id.places_recommendations);
         places_recommendations.setHasFixedSize(true);
@@ -152,10 +155,12 @@ public class RecommendationsActivity extends AppCompatActivity {
 
                     String tempTimeString = jsonArray.getJSONObject(i).getJSONObject("duration").get("value").toString();
 
+
                     tempTime = Long.parseLong(tempTimeString, 10);
                     if (tempTime + 3600 <= totalTime) {
                         j = Integer.parseInt(Integer.toString(i));
                         boolean indexesAdd = indexes.add(j);
+                        howMuchTimeString.add(jsonArray.getJSONObject(i).getJSONObject("duration").get("text").toString());
 
                     }
                 }
@@ -184,6 +189,7 @@ public class RecommendationsActivity extends AppCompatActivity {
                     new Places();
                     Places plx;
                     plx = AndroidGooglePlaces.temp.get(val);
+                    plx.setDistance(howMuchTimeString.get(i));
                     placesLists.add(plx);
                 }
 

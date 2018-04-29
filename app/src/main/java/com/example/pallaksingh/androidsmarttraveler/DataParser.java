@@ -35,12 +35,12 @@ public class DataParser {
                 latitude = googlePlaceJson.getJSONObject("geometry").getJSONObject("location").getString("lat");
                 longitude= googlePlaceJson.getJSONObject("geometry").getJSONObject("location").getString("lng");
 
-//                reference = googlePlaceJson.getString("reference");
-//                googlePlacesMap.put("place_name", placeName);
-//                googlePlacesMap.put("vicinity", vicinity);
-//                googlePlacesMap.put("latitude", latitude);
-//                googlePlacesMap.put("longitude", longitude);
-//                googlePlacesMap.put("reference", reference);
+                reference = googlePlaceJson.getString("reference");
+                googlePlacesMap.put("place_name", placeName);
+                googlePlacesMap.put("vicinity", vicinity);
+                googlePlacesMap.put("latitude", latitude);
+                googlePlacesMap.put("longitude", longitude);
+                googlePlacesMap.put("reference", reference);
 
             } catch (JSONException e) {
                 e.printStackTrace();
