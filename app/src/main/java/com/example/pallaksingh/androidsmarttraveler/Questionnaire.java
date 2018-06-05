@@ -90,7 +90,7 @@ public class Questionnaire extends AppCompatActivity implements View.OnClickList
         mTimeListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                timeInUnix = hourOfDay*3600 + 50*minute;
+                timeInUnix = hourOfDay*3600 + 60*minute;
                 String date = hourOfDay + " hr " + minute + " mins";
                 textViewDate.setText(date);
             }

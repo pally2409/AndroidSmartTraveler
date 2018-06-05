@@ -50,30 +50,17 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     int PROXIMITY_RADIUS = 10000;
     double latitude,longitude;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M) {
             checkLocationPermission();
         }
-
         buildGoogleApiClient();
-
-
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-
     }
-
-
-
-
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -88,12 +75,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
                    }
                } else {
                    Toast.makeText(this, "Permission Denied", Toast.LENGTH_LONG).show();
-
-               }
-
-               return;
+               }return;
        }
-
     }
 
     @Override
@@ -117,9 +100,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         }
 
     }
-
-
-
     protected synchronized void buildGoogleApiClient() {
 
         client = new GoogleApiClient.Builder(this)

@@ -14,9 +14,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -85,7 +87,7 @@ public class AndroidGooglePlaces extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_android_google_places);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         places_recommendations = (RecyclerView) findViewById(R.id.places_recommendations);
         TimeFilterbutton = (Button) findViewById(R.id.TimeFilterbutton);
@@ -95,6 +97,7 @@ public class AndroidGooglePlaces extends AppCompatActivity implements View.OnCli
 
 
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
 
@@ -166,6 +169,7 @@ public class AndroidGooglePlaces extends AppCompatActivity implements View.OnCli
 
 
     }
+
 
     @Override
     protected void onStart() {

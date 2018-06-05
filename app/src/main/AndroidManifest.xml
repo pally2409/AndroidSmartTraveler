@@ -33,13 +33,13 @@
             android:value="AIzaSyBaFUPSS2M3_wTQT5aJ6rqMDGbNKb2NRAE" />
 
         <activity android:name=".RecommendationsActivity"
-            android:parentActivityName = ".AndroidGooglePlaces"/>
+            android:parentActivityName = "AndroidGooglePlaces"/>
         <activity android:name=".AndroidGooglePlaces"
-            android:parentActivityName = ".ProfileActivity"/>
+            android:parentActivityName = "ProfileActivity"/>
         <activity android:name=".MapActivity"
-            android:parentActivityName = ".ProfileActivity"/>
+            android:parentActivityName = "ProfileActivity"/>
         <activity android:name=".Questionnaire"
-            android:parentActivityName = ".ProfileActivity">
+            android:parentActivityName = "ProfileActivity">
 
         </activity>
     </application>
